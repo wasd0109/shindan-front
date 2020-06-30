@@ -3,14 +3,14 @@ import start from "../assets/start.png";
 
 function Start({ startTitle, onClickStart }) {
   return (
-    <div className=" py-8 border-8 border-blue-400 w-11/12">
+    <div className=" py-8 border-8 border-blue-400 w-8/12 md:w-11/12">
       <img
         src={start}
         alt="ガチ恋イラスト"
         className="w-64
      m-auto"
       />
-      <h1 className="text-2xl">{startTitle}</h1>
+      <h1 className="text-xl md:text-2xl">{startTitle}</h1>
       <button
         onClick={onClickStart}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4"
@@ -20,7 +20,13 @@ function Start({ startTitle, onClickStart }) {
       <footer className="mt-2">
         By
         <span>
-          <a href="https://www.facebook.com/wotasaidwhat9">ヲタ噏乜9</a>
+          <a
+            href="https://www.facebook.com/wotasaidwhat9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ヲタ噏乜9
+          </a>
         </span>
       </footer>
     </div>

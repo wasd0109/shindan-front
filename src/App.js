@@ -63,7 +63,7 @@ export default class App extends Component {
         <div className="flex justify-center">
           <div
             id="container"
-            className="my-24 flex text-center m-auto justify-center"
+            className="my-2 flex text-center m-auto justify-center"
           >
             <Start
               onClickStart={this.onClickStart}
@@ -78,7 +78,7 @@ export default class App extends Component {
         <div className="flex justify-center ">
           <div
             id="container"
-            className="my-24 flex text-center m-auto justify-center"
+            className="my-2 flex text-center m-auto justify-center"
           >
             <Questions
               question={questions[currentQuestion]}
@@ -94,7 +94,7 @@ export default class App extends Component {
         <div className="flex justify-center ">
           <div
             id="container"
-            className="my-24 flex text-center m-auto justify-center"
+            className="my-2 flex text-center m-auto justify-center"
           >
             <Result scores={scores} average={average} siteLink={siteLink} />
           </div>
