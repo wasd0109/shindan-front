@@ -40,6 +40,15 @@ export default class App extends Component {
     }
   };
 
+  onClickBack = () => {
+    const { currentQuestion, scores } = this.state;
+    if (currentQuestion !== 0) {
+      scores.pop();
+      console.log(scores);
+      this.setState({ currentQuestion: currentQuestion - 1, scores: scores });
+    }
+  };
+
   componentDidMount() {
     fetch("https://shindan-back.herokuapp.com/questions")
       .then((res) => res.json())
@@ -83,6 +92,7 @@ export default class App extends Component {
             <Questions
               question={questions[currentQuestion]}
               onClickAnswer={this.onClickAnswer}
+              onClickBack={this.onClickBack}
             />
           </div>
         </div>
