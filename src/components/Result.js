@@ -2,22 +2,23 @@ import React from "react";
 import twitter from "../assets/twitter.png";
 import facebook from "../assets/facebook.png";
 import whatsapp from "../assets/whatsapp.png";
+import images from "../assets/result/index";
 
 const decideRank = (total) => {
   if (total < 4) {
-    return "普通的飯";
+    return ["普通的飯", images[0]];
   }
   if (total < 7) {
-    return "ガチ恋初期";
+    return ["ガチ恋初期", images[1]];
   }
   if (total < 11) {
-    return "ガチ恋準備軍";
+    return ["ガチ恋準備軍", images[2]];
   }
   if (total < 14) {
-    return "ガチ恋";
+    return ["ガチ恋", images[3]];
   }
 
-  return "急需入院";
+  return ["急需入院", images[4]];
 };
 
 const sendScore = (score) => {
@@ -33,18 +34,18 @@ const sendScore = (score) => {
 
 function Result({ scores, siteLink, average }) {
   const total = scores.reduce((acc, val) => acc + val);
-  const rank = decideRank(total);
+  const [rank, image] = decideRank(total);
   sendScore(total);
   return (
     <div className=" py-8 border-8 border-blue-400 w-11/12">
-      <p className="text-xl">你是</p>
+      <p className="text-xl">你ガチ恋程度是</p>
       <img
-        src=""
+        src={image}
         alt="ガチ恋イラスト"
-        className="w-64
+        className="h-64
  m-auto"
       />
-      <h1 className="text-3xl">{rank}</h1>
+      <h1 className="text-3xl font-bold">{rank}</h1>
 
       <p className="text-sm my-2">
         你的得分是 <span className="text-2xl">{total}</span>
@@ -55,7 +56,7 @@ function Result({ scores, siteLink, average }) {
       <p>分享到SNS</p>
       <div className="flex justify-center">
         <a
-          href={`https://twitter.com/intent/tweet?text=我的等級是${rank} 在這裡接受測試吧! ${siteLink}`}
+          href={`https://twitter.com/intent/tweet?text=我的等級是${rank}! 在這裡接受測試吧! ${siteLink}`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-6 mx-2"
@@ -63,7 +64,7 @@ function Result({ scores, siteLink, average }) {
           <img src={twitter} alt="" />
         </a>
         <a
-          href="https://twitter.com/intent/tweet?text=Hello%20world"
+          href={`https://www.facebook.com/sharer/sharer.php?p[title]=YOUR_TITLE&p[summary]=YOUR_SUMMARY&u=${siteLink}`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-6 mx-2"
@@ -71,7 +72,7 @@ function Result({ scores, siteLink, average }) {
           <img src={facebook} alt="" />
         </a>
         <a
-          href="https://twitter.com/intent/tweet?text=Hello%20world"
+          href={`whatsapp://send?text=我的等級是${rank}! 在這裡接受測試吧! ${siteLink}`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-6 mx-2"

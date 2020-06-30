@@ -18,7 +18,7 @@ export default class App extends Component {
       currentQuestion: 0,
       questions: [],
       scores: [],
-      siteLink: "",
+      siteLink: "https://wota-shindan.netlify.app/",
       average: 0,
     };
   }
@@ -60,7 +60,7 @@ export default class App extends Component {
     } = this.state;
     if (route === "start") {
       return (
-        <div className="flex justify-center ">
+        <div className="flex justify-center">
           <div
             id="container"
             className="my-24 flex text-center m-auto justify-center"

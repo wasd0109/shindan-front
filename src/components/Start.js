@@ -17,8 +17,12 @@ function Start({ startTitle, onClickStart }) {
       >
         開始
       </button>
-      <p className="text-sm my-2">以電話瀏覽以獲得最佳體驗</p>
-      <p className="text-xs my-2">你的得分將上載於伺服器作計算平均分數之用</p>
+      <footer className="mt-2">
+        By
+        <span>
+          <a href="https://www.facebook.com/wotasaidwhat9">ヲタ噏乜9</a>
+        </span>
+      </footer>
     </div>
   );
 }
