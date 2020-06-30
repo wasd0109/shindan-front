@@ -37,7 +37,7 @@ function Result({ scores, siteLink, average }) {
   const [rank, image] = decideRank(total);
   sendScore(total);
   return (
-    <div className=" py-8 border-8 border-blue-400 w-8/12 md:w-11/12">
+    <div className=" py-8 border-8 border-blue-400 w-10/12 ">
       <p className="text-xl">你ガチ恋程度是</p>
       <img
         src={image}

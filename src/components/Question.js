@@ -17,7 +17,7 @@ function Question({ question, onClickAnswer }) {
   const title = questiontitle.split(" ");
   console.log(title);
   return (
-    <div className=" py-8 border-8 border-blue-400 w-8/12 md:w-11/12">
+    <div className=" py-8 border-8 border-blue-400 w-10/12 ">
       <div className="image">
         <img
           src={images[id - 1]}

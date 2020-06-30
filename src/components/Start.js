@@ -3,7 +3,7 @@ import start from "../assets/start.png";
 
 function Start({ startTitle, onClickStart }) {
   return (
-    <div className=" py-8 border-8 border-blue-400 w-8/12 md:w-11/12">
+    <div className=" py-8 border-8 border-blue-400 w-10/12">
       <img
         src={start}
         alt="ガチ恋イラスト"
