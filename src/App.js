@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import Start from "./components/Start";
 import Questions from "./components/Question";
 import Result from "./components/Result";
+import ReactGA from "react-ga";
 import "./App.css";
 import "./output.css";
+
+ReactGA.initialize("UA-171012457-2");
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 export default class App extends Component {
   constructor(props) {
