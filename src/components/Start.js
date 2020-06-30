@@ -18,7 +18,7 @@ function Start({ startTitle, onClickStart }) {
         開始
       </button>
       <footer className="mt-2">
-        By
+        Created by
         <span>
           <a
             href="https://www.facebook.com/wotasaidwhat9"

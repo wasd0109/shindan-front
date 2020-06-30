@@ -37,14 +37,9 @@ function Result({ scores, siteLink, average }) {
   const [rank, image] = decideRank(total);
   sendScore(total);
   return (
-    <div className=" py-8 border-8 border-blue-400 w-10/12 ">
+    <div className="py-8 border-8 border-blue-400 w-10/12 ">
       <p className="text-xl">你ガチ恋程度是</p>
-      <img
-        src={image}
-        alt="ガチ恋イラスト"
-        className="h-64
- m-auto"
-      />
+      <img src={image} alt="ガチ恋イラスト" className="m-auto h-48" />
       <h1 className="text-3xl font-bold">{rank}</h1>
 
       <p className="text-sm my-2">
@@ -78,6 +73,15 @@ function Result({ scores, siteLink, average }) {
           className="w-6 mx-2"
         >
           <img src={whatsapp} alt="" />
+        </a>
+      </div>
+      <div className="mt-4">
+        <h2>請讚好專頁以獲取更多ヲタ資訊</h2>
+        <a
+          href="https://www.facebook.com/wotasaidwhat9"
+          className="text-blue-800 hover:text-white"
+        >
+          ヲタ噏乜9
         </a>
       </div>
     </div>
