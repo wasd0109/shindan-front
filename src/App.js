@@ -27,6 +27,7 @@ export default class App extends Component {
         },
       ],
       scores: [],
+      siteLink: "",
     };
   }
 
@@ -48,50 +49,51 @@ export default class App extends Component {
   };
 
   render() {
-    const { route, questions, currentQuestion } = this.state;
+    const { route, questions, currentQuestion, scores, siteLink } = this.state;
 
-    // if (route === "start") {
-    //   return (
-    //     <div className="flex justify-center ">
-    //       <div
-    //         id="container"
-    //         className="my-24 flex text-center m-auto justify-center"
-    //       >
-    //         <Start
-    //           onClickStart={this.onClickStart}
-    //           startTitle={"測試一下你的ガチ恋程度"}
-    //         />
-    //       </div>
-    //     </div>
-    //   );
-    // }
-    // if (route === "question") {
-    //   return (
-    //     <div className="flex justify-center ">
-    //       <div
-    //         id="container"
-    //         className="my-24 flex text-center m-auto justify-center"
-    //       >
-    //         <Questions
-    //           question={questions[currentQuestion]}
-    //           onClickAnswer={this.onClickAnswer}
-    //         />
-    //       </div>
-    //     </div>
-    //   );
-    // }
-
-    return (
-      <div className="flex justify-center ">
-        <div
-          id="container"
-          className="my-24 flex text-center m-auto justify-center"
-        >
-          <Result />
+    if (route === "start") {
+      return (
+        <div className="flex justify-center ">
+          <div
+            id="container"
+            className="my-24 flex text-center m-auto justify-center"
+          >
+            <Start
+              onClickStart={this.onClickStart}
+              startTitle={"測試一下你的ガチ恋程度"}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    if (route === "question") {
+      return (
+        <div className="flex justify-center ">
+          <div
+            id="container"
+            className="my-24 flex text-center m-auto justify-center"
+          >
+            <Questions
+              question={questions[currentQuestion]}
+              onClickAnswer={this.onClickAnswer}
+            />
+          </div>
+        </div>
+      );
+    }
 
+    if (route === "result") {
+      return (
+        <div className="flex justify-center ">
+          <div
+            id="container"
+            className="my-24 flex text-center m-auto justify-center"
+          >
+            <Result scores={scores} siteLink={siteLink} />
+          </div>
+        </div>
+      );
+    }
     return <div>Error</div>;
   }
 }
