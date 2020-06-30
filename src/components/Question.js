@@ -10,7 +10,7 @@ function Question({ question, onClickAnswer }) {
     );
   }
 
-  const { questionTitle, choice, score } = question;
+  const { questiontitle, choice, score } = question;
   const choices = choice.split("/");
   const scores = score.split("/");
   return (
@@ -21,7 +21,7 @@ function Question({ question, onClickAnswer }) {
         className="w-64
  m-auto"
       />
-      <h1 className="text-xl">{questionTitle}</h1>
+      <h1 className="text-xl">{questiontitle}</h1>
       <button
         id={scores[0]}
         onClick={onClickAnswer}
