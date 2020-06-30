@@ -24,6 +24,7 @@ function Start({ startTitle, onClickStart }) {
             href="https://www.facebook.com/wotasaidwhat9"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-lg ml-1"
           >
             ヲタ噏乜9
           </a>

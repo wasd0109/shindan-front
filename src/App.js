@@ -20,6 +20,7 @@ export default class App extends Component {
       scores: [],
       siteLink: "https://wota-shindan.netlify.app/",
       average: 0,
+      error: false,
     };
   }
 
@@ -52,10 +53,12 @@ export default class App extends Component {
   componentDidMount() {
     fetch("https://shindan-back.herokuapp.com/questions")
       .then((res) => res.json())
-      .then((questions) => this.setState({ questions: questions }));
+      .then((questions) => this.setState({ questions: questions }))
+      .catch(() => this.setState({ error: true }));
     fetch("https://shindan-back.herokuapp.com/scores")
       .then((res) => res.json())
-      .then((data) => this.setState({ average: Number(data[0].avg) }));
+      .then((data) => this.setState({ average: Number(data[0].avg) }))
+      .catch(() => this.setState({ error: true }));
   }
 
   render() {
@@ -66,7 +69,29 @@ export default class App extends Component {
       scores,
       siteLink,
       average,
+      error,
     } = this.state;
+    if (error) {
+      return (
+        <div className="justify-center p-32">
+          <div className="bg-blue-500 text-center  text-3xl">
+            發生錯誤
+            <p className="text-2xl">
+              請向
+              <span>
+                <a
+                  href="https://www.facebook.com/wotasaidwhat9"
+                  className="text-white  "
+                >
+                  ヲタ噏乜9專頁
+                </a>
+              </span>
+              報告
+            </p>
+          </div>
+        </div>
+      );
+    }
     if (route === "start") {
       return (
         <div className="flex justify-center">
@@ -111,6 +136,5 @@ export default class App extends Component {
         </div>
       );
     }
-    return <div>Error</div>;
   }
 }
