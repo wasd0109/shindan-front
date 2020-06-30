@@ -20,9 +20,21 @@ const decideRank = (total) => {
   return "急需入院";
 };
 
-function Result({ scores, siteLink }) {
+const sendScore = (score) => {
+  const data = JSON.stringify({ score: score, date: new Date() });
+  fetch("http://localhost:3000/scores", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+};
+
+function Result({ scores, siteLink, average }) {
   const total = scores.reduce((acc, val) => acc + val);
-  const rank = decideRank(14);
+  const rank = decideRank(total);
+  sendScore(total);
   return (
     <div className=" py-8 border-8 border-blue-400 w-11/12">
       <p className="text-xl">你是</p>
@@ -38,7 +50,7 @@ function Result({ scores, siteLink }) {
         你的得分是 <span className="text-2xl">{total}</span>
       </p>
       <p className="text-xs my-2">
-        平均得分 <span className="text-2xl">5</span>
+        平均得分 <span className="text-2xl">{average.toFixed(0)}</span>
       </p>
       <p>分享到SNS</p>
       <div className="flex justify-center">

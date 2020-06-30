@@ -12,22 +12,10 @@ export default class App extends Component {
     this.state = {
       route: "start",
       currentQuestion: 0,
-      questions: [
-        {
-          id: 0,
-          questionTitle: "試過一天有30分鐘以上在想推的事",
-          choice: ["Yes", "No"],
-          score: [1, 0],
-        },
-        {
-          id: 1,
-          questionTitle: "試過一天有30分鐘以上在想推的事!",
-          choice: ["Yes", "No"],
-          score: [1, 0],
-        },
-      ],
+      questions: [],
       scores: [],
       siteLink: "",
+      average: 0,
     };
   }
 
@@ -48,9 +36,24 @@ export default class App extends Component {
     }
   };
 
-  render() {
-    const { route, questions, currentQuestion, scores, siteLink } = this.state;
+  componentDidMount() {
+    fetch("http://localhost:3000/questions")
+      .then((res) => res.json())
+      .then((questions) => this.setState({ questions: questions }));
+    fetch("http://localhost:3000/scores")
+      .then((res) => res.json())
+      .then((data) => this.setState({ average: Number(data[0].avg) }));
+  }
 
+  render() {
+    const {
+      route,
+      questions,
+      currentQuestion,
+      scores,
+      siteLink,
+      average,
+    } = this.state;
     if (route === "start") {
       return (
         <div className="flex justify-center ">
@@ -89,7 +92,7 @@ export default class App extends Component {
             id="container"
             className="my-24 flex text-center m-auto justify-center"
           >
-            <Result scores={scores} siteLink={siteLink} />
+            <Result scores={scores} average={average} siteLink={siteLink} />
           </div>
         </div>
       );
