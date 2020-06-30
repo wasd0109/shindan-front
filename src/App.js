@@ -37,10 +37,10 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:3000/questions")
+    fetch("https://shindan-back.herokuapp.com/questions")
       .then((res) => res.json())
       .then((questions) => this.setState({ questions: questions }));
-    fetch("http://localhost:3000/scores")
+    fetch("https://shindan-back.herokuapp.com/scores")
       .then((res) => res.json())
       .then((data) => this.setState({ average: Number(data[0].avg) }));
   }

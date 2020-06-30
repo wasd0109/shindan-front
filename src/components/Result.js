@@ -22,7 +22,7 @@ const decideRank = (total) => {
 
 const sendScore = (score) => {
   const data = JSON.stringify({ score: score, date: new Date() });
-  fetch("http://localhost:3000/scores", {
+  fetch("https://shindan-back.herokuapp.com/scores", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
