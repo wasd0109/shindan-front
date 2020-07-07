@@ -1,20 +1,31 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Start from "./components/Start";
 import Questions from "./components/Question";
 import Result from "./components/Result";
 import ReactGA from "react-ga";
+import { setRouteToQuestion } from "./actions";
 import "./App.css";
 import "./output.css";
 
 ReactGA.initialize("UA-171012457-2");
 ReactGA.pageview(window.location.pathname + window.location.search);
 
-export default class App extends Component {
+const mapStateToProps = (state) => {
+  return {
+    route: state.route,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return { onClickStart: () => dispatch(setRouteToQuestion()) };
+};
+
+class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      route: "start",
       currentQuestion: 0,
       questions: [],
       scores: [],
@@ -23,12 +34,6 @@ export default class App extends Component {
       error: false,
     };
   }
-
-  onClickStart = () => {
-    this.setState({
-      route: "question",
-    });
-  };
 
   onClickAnswer = (event) => {
     const { currentQuestion, scores, questions } = this.state;
@@ -62,8 +67,8 @@ export default class App extends Component {
   }
 
   render() {
+    const { route, onClickStart } = this.props;
     const {
-      route,
       questions,
       currentQuestion,
       scores,
@@ -100,7 +105,7 @@ export default class App extends Component {
             className="my-2 flex text-center m-auto justify-center"
           >
             <Start
-              onClickStart={this.onClickStart}
+              onClickStart={onClickStart}
               startTitle={"測試一下你的ガチ恋程度"}
             />
           </div>
@@ -138,3 +143,5 @@ export default class App extends Component {
     }
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

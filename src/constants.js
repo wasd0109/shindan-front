@@ -1,0 +1,2 @@
+export const CHANGE_ROUTE_TO_QUESTION = "CHANGE_ROUTE_TO_QUESTION";
+export const ADD_SCORE = "ADD_SCORE";
