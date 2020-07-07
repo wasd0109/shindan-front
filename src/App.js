@@ -4,7 +4,7 @@ import Start from "./components/Start";
 import Questions from "./components/Question";
 import Result from "./components/Result";
 import ReactGA from "react-ga";
-import { setRouteToQuestion } from "./actions";
+import { setRouteToQuestion, addScore } from "./actions";
 import "./App.css";
 import "./output.css";
 
@@ -13,12 +13,16 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 const mapStateToProps = (state) => {
   return {
-    route: state.route,
+    route: state.setRoute.route,
+    score: state.setScore.scores,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { onClickStart: () => dispatch(setRouteToQuestion()) };
+  return {
+    onClickStart: () => dispatch(setRouteToQuestion()),
+    onClickAnswer: (event) => dispatch(addScore(event)),
+  };
 };
 
 class App extends Component {
@@ -67,15 +71,8 @@ class App extends Component {
   }
 
   render() {
-    const { route, onClickStart } = this.props;
-    const {
-      questions,
-      currentQuestion,
-      scores,
-      siteLink,
-      average,
-      error,
-    } = this.state;
+    const { route, onClickStart, scores, onClickAnswer } = this.props;
+    const { questions, currentQuestion, siteLink, average, error } = this.state;
     if (error) {
       return (
         <div className="justify-center p-32">
@@ -121,7 +118,7 @@ class App extends Component {
           >
             <Questions
               question={questions[currentQuestion]}
-              onClickAnswer={this.onClickAnswer}
+              onClickAnswer={onClickAnswer}
               onClickBack={this.onClickBack}
             />
           </div>

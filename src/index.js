@@ -7,10 +7,14 @@ import thunkMiddleware from "redux-thunk";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { setRoute } from "./reducers";
+import { setRoute, setScore } from "./reducers";
 
 const logger = createLogger();
-const store = createStore(setRoute, applyMiddleware(logger, thunkMiddleware));
+const rootReducer = combineReducers({ setRoute, setScore });
+const store = createStore(
+  rootReducer,
+  applyMiddleware(logger, thunkMiddleware)
+);
 
 ReactDOM.render(
   <React.StrictMode>
