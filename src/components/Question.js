@@ -3,7 +3,12 @@ import ReactLoading from "react-loading";
 import backBtn from "../assets/backBtn.png";
 import images from "../assets/questions/index";
 
-function Question({ question, onClickAnswer, onClickBack }) {
+function Question({
+  question,
+  onClickAnswer,
+  onClickFinalAnswer,
+  onClickBack,
+}) {
   if (question === undefined) {
     return (
       <div className="flex justify-center pt-48 align-middle py-8 border-8 border-blue-400 w-11/12 ">

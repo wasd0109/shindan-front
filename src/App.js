@@ -4,7 +4,13 @@ import Start from "./components/Start";
 import Questions from "./components/Question";
 import Result from "./components/Result";
 import ReactGA from "react-ga";
-import { setRouteToQuestion, answerClick, backClick } from "./actions";
+import {
+  setRouteToQuestion,
+  answerClick,
+  backClick,
+  getQuestions,
+  onClickFinalAnswer,
+} from "./actions";
 import "./App.css";
 import "./output.css";
 
@@ -14,8 +20,11 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 const mapStateToProps = (state) => {
   return {
     route: state.setRoute.route,
-    score: state.setScore.scores,
+    scores: state.setScore.scores,
     currentQuestion: state.setQuestion.currentQuestion,
+    questions: state.getQuestions.questions,
+    noOfQuestions: state.getQuestions.noOfQuestions,
+    error: state.getQuestions.error,
   };
 };
 
@@ -23,7 +32,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClickStart: () => dispatch(setRouteToQuestion()),
     onClickAnswer: (event) => dispatch(answerClick(event)),
+    onClickFinalAnswer: (event) => dispatch(onClickFinalAnswer(event)),
     onClickBack: () => dispatch(backClick()),
+    onStart: () => dispatch(getQuestions()),
   };
 };
 
@@ -32,38 +43,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      questions: [],
       siteLink: "https://wota-shindan.netlify.app/",
       average: 0,
       error: false,
     };
   }
 
-  onClickAnswer = (event) => {
-    const { currentQuestion, scores, questions } = this.state;
-    const score = Number(event.currentTarget.id);
-    scores.push(score);
-    if (currentQuestion === questions.length - 1) {
-      this.setState({ route: "result", scores: scores });
-    } else {
-      this.setState({ currentQuestion: currentQuestion + 1, scores: scores });
-    }
-  };
-
-  onClickBack = () => {
-    const { currentQuestion, scores } = this.state;
-    if (currentQuestion !== 0) {
-      scores.pop();
-      console.log(scores);
-      this.setState({ currentQuestion: currentQuestion - 1, scores: scores });
-    }
-  };
-
   componentDidMount() {
-    fetch("https://shindan-back.herokuapp.com/questions")
-      .then((res) => res.json())
-      .then((questions) => this.setState({ questions: questions }))
-      .catch(() => this.setState({ error: true }));
+    this.props.onStart();
     fetch("https://shindan-back.herokuapp.com/scores")
       .then((res) => res.json())
       .then((data) => this.setState({ average: Number(data[0].avg) }))
@@ -76,10 +63,15 @@ class App extends Component {
       onClickStart,
       scores,
       onClickAnswer,
+      onClickFinalAnswer,
       onClickBack,
       currentQuestion,
+      questions,
+      noOfQuestions,
+      error,
     } = this.props;
-    const { questions, siteLink, average, error } = this.state;
+    console.log(this.props);
+    const { siteLink, average } = this.state;
     if (error) {
       return (
         <div className="justify-center p-32">
@@ -117,6 +109,22 @@ class App extends Component {
       );
     }
     if (route === "question") {
+      if (currentQuestion === noOfQuestions - 1) {
+        return (
+          <div className="flex justify-center ">
+            <div
+              id="container"
+              className="my-2 flex text-center m-auto justify-center"
+            >
+              <Questions
+                question={questions[currentQuestion]}
+                onClickAnswer={onClickFinalAnswer}
+                onClickBack={onClickBack}
+              />
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="flex justify-center ">
           <div

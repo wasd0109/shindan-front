@@ -33,6 +33,7 @@ const sendScore = (score) => {
 };
 
 function Result({ scores, siteLink, average }) {
+  console.log(scores);
   const total = scores.reduce((acc, val) => acc + val);
   const [rank, image] = decideRank(total);
   sendScore(total);

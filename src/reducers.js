@@ -1,9 +1,13 @@
 import {
   CHANGE_ROUTE_TO_QUESTION,
+  CHANGE_ROUTE_TO_RESULT,
   ADD_SCORE,
   REMOVE_SCORE,
   NEXT_QUESTION,
   PREVIOUS_QUESTION,
+  GET_QUESTION_PENDING,
+  GET_QUESTION_SUCCESS,
+  GET_QUESTION_FAILED,
 } from "./constants";
 
 const initialStateRoute = {
@@ -13,6 +17,7 @@ const initialStateRoute = {
 export const setRoute = (state = initialStateRoute, action = {}) => {
   switch (action.type) {
     case CHANGE_ROUTE_TO_QUESTION:
+    case CHANGE_ROUTE_TO_RESULT:
       return Object.assign({}, state, { route: action.payload });
     default:
       return state;
@@ -24,7 +29,6 @@ const initialStateScore = {
 };
 
 export const setScore = (state = initialStateScore, action = {}) => {
-  console.log(state);
   switch (action.type) {
     case ADD_SCORE:
       state.scores.push(action.payload);
@@ -49,7 +53,6 @@ export const setQuestion = (
   state = initialStateCurrentQuestion,
   action = {}
 ) => {
-  console.log(action);
   switch (action.type) {
     case NEXT_QUESTION:
       return Object.assign({}, state, {
@@ -61,6 +64,28 @@ export const setQuestion = (
             currentQuestion: --state.currentQuestion,
           })
         : state;
+    default:
+      return state;
+  }
+};
+
+const initialStateQuestions = {
+  questions: [],
+  noOfQuestions: 0,
+  error: false,
+};
+
+export const getQuestions = (state = initialStateQuestions, action = {}) => {
+  switch (action.type) {
+    case GET_QUESTION_PENDING:
+      return Object.assign({}, state, {});
+    case GET_QUESTION_SUCCESS:
+      return Object.assign({}, state, {
+        questions: action.payload,
+        noOfQuestions: action.payload.length,
+      });
+    case GET_QUESTION_FAILED:
+      return Object.assign({}, state, { error: true });
     default:
       return state;
   }
