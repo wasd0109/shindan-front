@@ -10,6 +10,7 @@ import {
   backClick,
   getQuestions,
   onClickFinalAnswer,
+  getAverage,
 } from "./actions";
 import "./App.css";
 import "./output.css";
@@ -25,6 +26,7 @@ const mapStateToProps = (state) => {
     questions: state.getQuestions.questions,
     noOfQuestions: state.getQuestions.noOfQuestions,
     error: state.getQuestions.error,
+    average: state.getAverage.average,
   };
 };
 
@@ -34,32 +36,21 @@ const mapDispatchToProps = (dispatch) => {
     onClickAnswer: (event) => dispatch(answerClick(event)),
     onClickFinalAnswer: (event) => dispatch(onClickFinalAnswer(event)),
     onClickBack: () => dispatch(backClick()),
-    onStart: () => dispatch(getQuestions()),
+    getQuestions: () => dispatch(getQuestions()),
+    getAverage: () => dispatch(getAverage()),
   };
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      siteLink: "https://wota-shindan.netlify.app/",
-      average: 0,
-      error: false,
-    };
-  }
-
   componentDidMount() {
-    this.props.onStart();
-    fetch("https://shindan-back.herokuapp.com/scores")
-      .then((res) => res.json())
-      .then((data) => this.setState({ average: Number(data[0].avg) }))
-      .catch(() => this.setState({ error: true }));
+    this.props.getQuestions();
+    this.props.getAverage();
   }
 
   render() {
     const {
       route,
+      average,
       onClickStart,
       scores,
       onClickAnswer,
@@ -70,8 +61,7 @@ class App extends Component {
       noOfQuestions,
       error,
     } = this.props;
-    console.log(this.props);
-    const { siteLink, average } = this.state;
+    const siteLink = "https://wota-shindan.netlify.app/";
     if (error) {
       return (
         <div className="justify-center p-32">

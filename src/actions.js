@@ -8,6 +8,9 @@ import {
   GET_QUESTION_PENDING,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAILED,
+  GET_AVERAGE_PENDING,
+  GET_AVERAGE_SUCCESS,
+  GET_AVERAGE_FAILED,
 } from "./constants";
 
 export const setRouteToQuestion = () => ({
@@ -60,4 +63,14 @@ export const getQuestions = () => (dispatch) => {
       dispatch({ type: GET_QUESTION_SUCCESS, payload: questions })
     )
     .catch((err) => dispatch({ type: GET_QUESTION_FAILED, payload: err }));
+};
+
+export const getAverage = () => (dispatch) => {
+  dispatch({ type: GET_AVERAGE_PENDING });
+  fetch("https://shindan-back.herokuapp.com/scores")
+    .then((res) => res.json())
+    .then((data) =>
+      dispatch({ type: GET_AVERAGE_SUCCESS, payload: Number(data[0].avg) })
+    )
+    .catch((err) => dispatch({ type: GET_AVERAGE_FAILED, payload: err }));
 };

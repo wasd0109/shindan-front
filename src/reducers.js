@@ -8,6 +8,9 @@ import {
   GET_QUESTION_PENDING,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAILED,
+  GET_AVERAGE_PENDING,
+  GET_AVERAGE_SUCCESS,
+  GET_AVERAGE_FAILED,
 } from "./constants";
 
 const initialStateRoute = {
@@ -86,6 +89,24 @@ export const getQuestions = (state = initialStateQuestions, action = {}) => {
       });
     case GET_QUESTION_FAILED:
       return Object.assign({}, state, { error: true });
+    default:
+      return state;
+  }
+};
+
+const initialStateAverage = {
+  average: 0,
+};
+
+export const getAverage = (state = initialStateAverage, action = {}) => {
+  switch (action.type) {
+    case GET_AVERAGE_PENDING:
+      return Object.assign({}, state, {});
+    case GET_AVERAGE_SUCCESS:
+      return Object.assign({}, state, {
+        average: action.payload,
+      });
+    case GET_AVERAGE_FAILED:
     default:
       return state;
   }
