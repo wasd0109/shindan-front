@@ -4,7 +4,7 @@ import Start from "./components/Start";
 import Questions from "./components/Question";
 import Result from "./components/Result";
 import ReactGA from "react-ga";
-import { setRouteToQuestion, addScore } from "./actions";
+import { setRouteToQuestion, answerClick, backClick } from "./actions";
 import "./App.css";
 import "./output.css";
 
@@ -15,13 +15,15 @@ const mapStateToProps = (state) => {
   return {
     route: state.setRoute.route,
     score: state.setScore.scores,
+    currentQuestion: state.setQuestion.currentQuestion,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onClickStart: () => dispatch(setRouteToQuestion()),
-    onClickAnswer: (event) => dispatch(addScore(event)),
+    onClickAnswer: (event) => dispatch(answerClick(event)),
+    onClickBack: () => dispatch(backClick()),
   };
 };
 
@@ -30,9 +32,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentQuestion: 0,
       questions: [],
-      scores: [],
       siteLink: "https://wota-shindan.netlify.app/",
       average: 0,
       error: false,
@@ -71,8 +71,15 @@ class App extends Component {
   }
 
   render() {
-    const { route, onClickStart, scores, onClickAnswer } = this.props;
-    const { questions, currentQuestion, siteLink, average, error } = this.state;
+    const {
+      route,
+      onClickStart,
+      scores,
+      onClickAnswer,
+      onClickBack,
+      currentQuestion,
+    } = this.props;
+    const { questions, siteLink, average, error } = this.state;
     if (error) {
       return (
         <div className="justify-center p-32">
@@ -119,7 +126,7 @@ class App extends Component {
             <Questions
               question={questions[currentQuestion]}
               onClickAnswer={onClickAnswer}
-              onClickBack={this.onClickBack}
+              onClickBack={onClickBack}
             />
           </div>
         </div>
